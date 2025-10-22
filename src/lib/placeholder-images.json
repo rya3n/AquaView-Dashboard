@@ -1,0 +1,34 @@
+{
+  "placeholderImages": [
+    {
+      "id": "prod-001",
+      "description": "A vibrant aquarium with colorful fish.",
+      "imageUrl": "https://images.unsplash.com/photo-1613475103889-e6462ac331bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhcXVhcml1bSUyMGZpc2h8ZW58MHx8fHwxNzYwOTkzODE5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "aquarium fish"
+    },
+    {
+      "id": "prod-002",
+      "description": "Lush green aquatic plants.",
+      "imageUrl": "https://images.unsplash.com/photo-1673938738186-bf36fb406e26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YXF1YXRpYyUyMHBsYW50c3xlbnwwfHx8fDE3NjA5OTM4MTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "aquatic plants"
+    },
+    {
+      "id": "prod-003",
+      "description": "A high-tech aquarium filter.",
+      "imageUrl": "https://images.unsplash.com/photo-1720001586147-0bfee9e5dba2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhcXVhcml1bSUyMGZpbHRlcnxlbnwwfHx8fDE3NjA5OTM4MTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "aquarium filter"
+    },
+    {
+      "id": "prod-004",
+      "description": "Colorful fish food flakes.",
+      "imageUrl": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmaXNoJTIwZm9vZHxlbnwwfHx8fDE3NjA5OTM4MTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fish food"
+    },
+    {
+      "id": "prod-005",
+      "description": "A modern LED aquarium light.",
+      "imageUrl": "https://images.unsplash.com/photo-1691704951797-0ead81773314?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhcXVhcml1bSUyMGxpZ2h0fGVufDB8fHx8MTc2MDk5MzgxOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "aquarium light"
+    }
+  ]
+}

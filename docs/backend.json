@@ -1,0 +1,158 @@
+{
+  "entities": {
+    "Product": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Product",
+      "type": "object",
+      "description": "Represents a product in the Acqua Aquários inventory.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the product."
+        },
+        "stock": {
+          "type": "number",
+          "description": "Current quantity of the product in stock."
+        },
+        "cost": {
+          "type": "number",
+          "description": "Cost of the product."
+        },
+        "price": {
+          "type": "number",
+          "description": "Price of the product."
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the product (e.g., Peixes, Plantas, Equipamentos)."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the product image."
+        },
+        "imageHint": {
+          "type": "string",
+          "description": "Hint for the product image AI generation."
+        }
+      },
+      "required": [
+        "name",
+        "stock",
+        "cost",
+        "price",
+        "category"
+      ]
+    },
+    "Client": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Client",
+      "type": "object",
+      "description": "Represents a client of Acqua Aquários.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the client."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email of the client."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number of the client."
+        },
+        "since": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date when the client was registered."
+        }
+      },
+      "required": [
+        "name",
+        "email"
+      ]
+    },
+    "Sale": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Sale",
+      "type": "object",
+      "description": "Represents a sale transaction.",
+      "properties": {
+        "clientId": {
+          "type": "string",
+          "description": "ID of the client who made the purchase."
+        },
+        "products": {
+          "type": "array",
+          "description": "List of products sold in the transaction.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "productId": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "number"
+              },
+              "unitPrice": {
+                "type": "number"
+              }
+            },
+            "required": ["productId", "quantity", "unitPrice"]
+          }
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "Total amount of the sale."
+        },
+        "saleDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date of the sale."
+        }
+      },
+      "required": ["clientId", "products", "totalAmount", "saleDate"]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/products/{productId}",
+        "definition": {
+          "entityName": "Product",
+          "schema": {
+            "$ref": "#/entities/Product"
+          },
+          "description": "Represents a product in the Acqua Aquários inventory. The product id is used as document id."
+        }
+      },
+      {
+        "path": "/clients/{clientId}",
+        "definition": {
+          "entityName": "Client",
+          "schema": {
+            "$ref": "#/entities/Client"
+          },
+          "description": "Represents a client. The client id is used as document id."
+        }
+      },
+      {
+        "path": "/sales/{saleId}",
+        "definition": {
+          "entityName": "Sale",
+          "schema": {
+            "$ref": "#/entities/Sale"
+          },
+          "description": "Represents a sale. The sale id is used as document id."
+        }
+      }
+    ]
+  }
+}

@@ -7,6 +7,7 @@ export type InventoryItem = {
   cost: number;
   price: number;
   category: string;
+  targetAudience?: 'Casa de Ração' | 'Revendedor';
   status: 'Em Estoque' | 'Estoque Baixo' | 'Fora de Estoque';
   imageUrl: string;
   imageHint: string;
@@ -19,6 +20,7 @@ export type Product = {
   cost: number;
   price: number;
   category: string;
+  targetAudience?: 'Casa de Ração' | 'Revendedor';
   imageUrl: string;
   imageHint: string;
 }
@@ -26,8 +28,8 @@ export type Product = {
 export type Client = {
     id: string;
     name: string;
-    email: string;
-    phone: string;
+    email?: string;
+    phone?: string;
     since: string;
     avatarUrl: string;
     avatarFallback: string;

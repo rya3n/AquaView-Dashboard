@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from 'react';
@@ -46,14 +47,14 @@ export default function LoginPage() {
       // 1. Set the session storage flag
       sessionStorage.setItem(AUTH_KEY, 'true');
       
-      // 2. Initiate sign-in. The onAuthStateChanged listener will handle the redirect.
+      // 2. Initiate sign-in if no user, otherwise redirect.
       if (!user) {
         initiateAnonymousSignIn(auth);
-      } else {
-        // If there's already an anonymous user, we don't need to sign in again.
-        // Just redirect.
-        router.push('/');
       }
+      
+      // 3. Explicitly redirect to the home page.
+      router.push('/');
+
     } else {
       toast({
         variant: 'destructive',

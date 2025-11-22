@@ -81,7 +81,7 @@ export default function ClientsList({ clients, isLoading, onClientClick, onDelet
                     <span className="font-medium">{client.name}</span>
                   </div>
                 </TableCell>
-                <TableCell className="hidden sm:table-cell text-muted-foreground">{client.email}</TableCell>
+                <TableCell className="hidden sm:table-cell text-muted-foreground">{client.email || 'N/A'}</TableCell>
                 <TableCell className="hidden md:table-cell text-muted-foreground">{client.phone}</TableCell>
                 <TableCell className="text-right font-semibold text-green-600">{formatCurrency(client.totalSpent)}</TableCell>
                 <TableCell className="hidden md:table-cell text-right text-muted-foreground">{formatSinceDate(client.since)}</TableCell>

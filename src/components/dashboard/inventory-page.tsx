@@ -35,6 +35,7 @@ export default function InventoryPage() {
     const [productToDelete, setProductToDelete] = React.useState<string | null>(null);
     const [productToEdit, setProductToEdit] = React.useState<Product | null>(null);
     const [searchTerm, setSearchTerm] = React.useState("");
+    const [filterAudience, setFilterAudience] = React.useState<string | null>(null);
 
     const inventory = React.useMemo(() => {
         if (!inventoryData) return [];
@@ -44,15 +45,19 @@ export default function InventoryPage() {
             status: item.stock > 10 ? 'Em Estoque' : item.stock > 0 ? 'Estoque Baixo' : 'Fora de Estoque',
         }));
 
+        const filteredByAudience = filterAudience
+            ? allItems.filter(item => item.targetAudience === filterAudience)
+            : allItems;
+
         if (!searchTerm) {
-            return allItems;
+            return filteredByAudience;
         }
 
-        return allItems.filter(item =>
+        return filteredByAudience.filter(item =>
             item.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
-    }, [inventoryData, searchTerm]);
+    }, [inventoryData, searchTerm, filterAudience]);
 
     const handleAddProduct = (newProduct: Omit<Product, 'id' | 'imageUrl' | 'imageHint'>) => {
       addDocumentNonBlocking(productsCollection, {
@@ -92,16 +97,23 @@ export default function InventoryPage() {
     return (
         <DashboardLayout headerTitle="Inventário">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-4">
-                 <div className="relative w-full sm:max-w-xs">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input 
-                        placeholder="Procurar por nome do produto..."
-                        className="pl-10"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                </div>
-                <Button onClick={() => setIsAddDialogOpen(true)} className="w-full sm:w-auto">
+                 <div className="flex flex-wrap items-center gap-2 w-full">
+                    <div className="relative w-full sm:max-w-xs">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input 
+                            placeholder="Procurar por nome do produto..."
+                            className="pl-10"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+                    <div className="flex gap-2">
+                        <Button variant={filterAudience === null ? 'default' : 'outline'} size="sm" onClick={() => setFilterAudience(null)}>Todos</Button>
+                        <Button variant={filterAudience === 'Revendedor' ? 'default' : 'outline'} size="sm" onClick={() => setFilterAudience('Revendedor')}>Revendedor</Button>
+                        <Button variant={filterAudience === 'Casa de Ração' ? 'default' : 'outline'} size="sm" onClick={() => setFilterAudience('Casa de Ração')}>Casa de Ração</Button>
+                    </div>
+                 </div>
+                <Button onClick={() => setIsAddDialogOpen(true)} className="w-full sm:w-auto shrink-0">
                     <PlusCircle className="mr-2 h-4 w-4" />
                     Adicionar Produto
                 </Button>

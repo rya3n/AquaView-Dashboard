@@ -51,8 +51,8 @@ export default function InventoryStatus({ inventory, onDeleteProduct, onEditProd
               <TableHead>Produto</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="hidden md:table-cell">Categoria</TableHead>
+              <TableHead className="hidden md:table-cell">Público-Alvo</TableHead>
               <TableHead className="text-right">Estoque</TableHead>
-              <TableHead className="hidden md:table-cell text-right">Custo</TableHead>
               <TableHead className="hidden md:table-cell text-right">Preço</TableHead>
               <TableHead className="text-right">Lucro Potencial</TableHead>
               {onDeleteProduct && <TableHead className="w-[100px] text-right">Ações</TableHead>}
@@ -74,11 +74,11 @@ export default function InventoryStatus({ inventory, onDeleteProduct, onEditProd
                   <TableCell  className="hidden md:table-cell">
                     <Skeleton className="h-4 w-20" />
                   </TableCell>
+                   <TableCell  className="hidden md:table-cell">
+                    <Skeleton className="h-4 w-20" />
+                  </TableCell>
                   <TableCell className="text-right">
                     <Skeleton className="h-4 w-8 ml-auto" />
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell text-right">
-                    <Skeleton className="h-4 w-16 ml-auto" />
                   </TableCell>
                   <TableCell className="hidden md:table-cell text-right">
                     <Skeleton className="h-4 w-16 ml-auto" />
@@ -110,13 +110,13 @@ export default function InventoryStatus({ inventory, onDeleteProduct, onEditProd
                   <Badge variant={getStatusVariant(item.status)}>{item.status}</Badge>
                 </TableCell>
                  <TableCell className="hidden md:table-cell text-muted-foreground">{item.category}</TableCell>
+                 <TableCell className="hidden md:table-cell text-muted-foreground">{item.targetAudience || 'N/D'}</TableCell>
                 <TableCell className={cn("text-right", {
                     "text-destructive font-bold": item.status === 'Fora de Estoque',
                     "text-amber-600 font-semibold": item.status === 'Estoque Baixo'
                 })}>
                   {item.stock}
                 </TableCell>
-                <TableCell className="hidden md:table-cell text-right">{formatCurrency(item.cost)}</TableCell>
                 <TableCell className="hidden md:table-cell text-right">{formatCurrency(item.price)}</TableCell>
                 <TableCell className="text-right font-semibold text-green-600">
                     {formatCurrency((item.price - item.cost) * item.stock)}

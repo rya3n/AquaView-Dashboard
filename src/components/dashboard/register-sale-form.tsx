@@ -32,6 +32,7 @@ export default function RegisterSaleForm() {
     const [selectedClientId, setSelectedClientId] = React.useState<string | undefined>(undefined);
     const [soldProducts, setSoldProducts] = React.useState<(Product & { quantity: number })[]>([]);
     const [searchTerm, setSearchTerm] = React.useState("");
+    const [filterAudience, setFilterAudience] = React.useState<string | null>(null);
     
     const clients = React.useMemo(() => {
         if (!clientsData) return [];
@@ -54,14 +55,18 @@ export default function RegisterSaleForm() {
             status: item.stock > 10 ? 'Em Estoque' : item.stock > 0 ? 'Estoque Baixo' : 'Fora de Estoque',
         }));
 
+        const filteredByAudience = filterAudience
+            ? allItems.filter(item => item.targetAudience === filterAudience)
+            : allItems;
+
         if (!searchTerm) {
-            return allItems;
+            return filteredByAudience;
         }
 
-        return allItems.filter(item =>
+        return filteredByAudience.filter(item =>
             item.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
-    }, [productsData, searchTerm]);
+    }, [productsData, searchTerm, filterAudience]);
 
     const handleAddProduct = (product: Product) => {
         setSoldProducts(prev => {
@@ -166,6 +171,7 @@ export default function RegisterSaleForm() {
         setSelectedClientId(undefined);
         setSoldProducts([]);
         setSearchTerm("");
+        setFilterAudience(null);
     };
 
 
@@ -248,14 +254,21 @@ export default function RegisterSaleForm() {
                 <div className="space-y-4">
                     <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
                         <h3 className="text-lg font-medium">Adicionar Produtos do Inventário</h3>
-                        <div className="relative w-full sm:max-w-xs">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <Input 
-                                placeholder="Procurar produtos..."
-                                className="pl-10"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                            />
+                        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto sm:justify-end">
+                            <div className="relative w-full sm:max-w-xs">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                <Input 
+                                    placeholder="Procurar produtos..."
+                                    className="pl-10"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
+                            </div>
+                            <div className="flex gap-2">
+                                <Button variant={filterAudience === null ? 'default' : 'outline'} size="sm" onClick={() => setFilterAudience(null)}>Todos</Button>
+                                <Button variant={filterAudience === 'Revendedor' ? 'default' : 'outline'} size="sm" onClick={() => setFilterAudience('Revendedor')}>Revendedor</Button>
+                                <Button variant={filterAudience === 'Casa de Ração' ? 'default' : 'outline'} size="sm" onClick={() => setFilterAudience('Casa de Ração')}>Casa de Ração</Button>
+                            </div>
                         </div>
                     </div>
                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">

@@ -75,7 +75,7 @@ export default function SalesOverview({ salesMetrics, isLoading }: SalesOverview
       <CardContent>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5">
             <MetricCard 
-                title="Lucro Bruto" 
+                title="Receita do Mês" 
                 value={salesMetrics.totalRevenue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} 
                 icon={DollarSign}
                 isLoading={isLoading}
@@ -87,7 +87,7 @@ export default function SalesOverview({ salesMetrics, isLoading }: SalesOverview
                 isLoading={isLoading}
             />
              <MetricCard 
-                title="Receita do Mês" 
+                title="Lucro Bruto" 
                 value={salesMetrics.grossProfit.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} 
                 icon={TrendingUp}
                 isLoading={isLoading}

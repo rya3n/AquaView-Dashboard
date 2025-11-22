@@ -66,7 +66,7 @@ export default function ClientsPage() {
 
         return allClients.filter(client => 
             client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            client.email.toLowerCase().includes(searchTerm.toLowerCase())
+            client.email?.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
     }, [clientsData, salesData, searchTerm]);

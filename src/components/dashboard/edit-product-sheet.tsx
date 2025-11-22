@@ -31,6 +31,7 @@ const formSchema = z.object({
   category: z.string({
     required_error: "Por favor, selecione uma categoria.",
   }),
+  targetAudience: z.string().optional(),
   stock: z.coerce.number().int().min(0, {
     message: "O estoque não pode ser negativo.",
   }),
@@ -58,6 +59,7 @@ export default function EditProductSheet({ product, isOpen, onOpenChange, onUpda
     if (product) {
       form.reset({
         category: product.category,
+        targetAudience: product.targetAudience,
         stock: product.stock,
         cost: product.cost,
         price: product.price,
@@ -98,32 +100,55 @@ export default function EditProductSheet({ product, isOpen, onOpenChange, onUpda
                 </div>
                 <Form {...form}>
                 <form id="edit-product-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                    <FormField
-                        control={form.control}
-                        name="category"
-                        render={({ field }) => (
+                    <div className="grid grid-cols-2 gap-4">
+                      <FormField
+                          control={form.control}
+                          name="category"
+                          render={({ field }) => (
+                              <FormItem>
+                              <FormLabel>Categoria</FormLabel>
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                  <FormControl>
+                                  <SelectTrigger>
+                                      <SelectValue placeholder="Selecione" />
+                                  </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent>
+                                  <SelectItem value="Peixes">Peixes</SelectItem>
+                                  <SelectItem value="Plantas">Plantas</SelectItem>
+                                  <SelectItem value="Aquários">Aquários</SelectItem>
+                                  <SelectItem value="Alimentação">Alimentação</SelectItem>
+                                  <SelectItem value="Equipamentos">Equipamentos</SelectItem>
+                                  <SelectItem value="Decoração">Decoração</SelectItem>
+                                  <SelectItem value="Outros">Outros</SelectItem>
+                                  </SelectContent>
+                              </Select>
+                              <FormMessage />
+                              </FormItem>
+                          )}
+                      />
+                       <FormField
+                          control={form.control}
+                          name="targetAudience"
+                          render={({ field }) => (
                             <FormItem>
-                            <FormLabel>Categoria</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormLabel>Público-Alvo</FormLabel>
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Selecione uma categoria" />
-                                </SelectTrigger>
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Selecione" />
+                                  </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                <SelectItem value="Peixes">Peixes</SelectItem>
-                                <SelectItem value="Plantas">Plantas</SelectItem>
-                                <SelectItem value="Aquários">Aquários</SelectItem>
-                                <SelectItem value="Alimentação">Alimentação</SelectItem>
-                                <SelectItem value="Equipamentos">Equipamentos</SelectItem>
-                                <SelectItem value="Decoração">Decoração</SelectItem>
-                                <SelectItem value="Outros">Outros</SelectItem>
+                                  <SelectItem value="Casa de Ração">Casa de Ração</SelectItem>
+                                  <SelectItem value="Revendedor">Revendedor</SelectItem>
                                 </SelectContent>
-                            </Select>
-                            <FormMessage />
+                              </Select>
+                              <FormMessage />
                             </FormItem>
-                        )}
-                    />
+                          )}
+                        />
+                    </div>
                     <FormField
                       control={form.control}
                       name="stock"

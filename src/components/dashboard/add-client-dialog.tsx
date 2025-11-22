@@ -30,7 +30,7 @@ const formSchema = z.object({
   }),
   email: z.string().email({
     message: "Por favor, insira um email válido.",
-  }),
+  }).optional().or(z.literal('')),
   phone: z.string().optional(),
 });
 
@@ -84,7 +84,7 @@ export default function AddClientDialog({ isOpen, onOpenChange, onAddClient }: A
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Email (Opcional)</FormLabel>
                   <FormControl>
                     <Input type="email" placeholder="Ex: joao.silva@example.com" {...field} />
                   </FormControl>

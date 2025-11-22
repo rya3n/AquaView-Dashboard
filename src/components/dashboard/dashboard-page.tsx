@@ -47,7 +47,7 @@ export default function DashboardPage() {
       return defaultMetrics;
     }
 
-    const grossProfit = currentMonthSales.reduce((acc, sale) => acc + sale.totalAmount, 0);
+    const totalRevenue = currentMonthSales.reduce((acc, sale) => acc + sale.totalAmount, 0);
 
     const totalCost = currentMonthSales.reduce((acc, sale) => {
       const saleCost = sale.products.reduce((productAcc, soldProduct) => {
@@ -58,7 +58,7 @@ export default function DashboardPage() {
       return acc + saleCost;
     }, 0);
 
-    const totalRevenue = grossProfit + totalCost;
+    const grossProfit = totalRevenue - totalCost;
     const profitMargin = totalRevenue > 0 ? (grossProfit / totalRevenue) * 100 : 0;
 
     const previousMonthRevenue = salesData
@@ -98,7 +98,8 @@ export default function DashboardPage() {
       const saleDate = parseISO(sale.saleDate);
       const monthKey = format(saleDate, 'yyyy-MM');
       if (monthlySales.hasOwnProperty(monthKey)) {
-        monthlySales[monthKey] += sale.totalAmount;
+        const revenue = sale.products.reduce((acc, p) => acc + (p.unitPrice * p.quantity), 0);
+        monthlySales[monthKey] += revenue;
       }
     });
   

@@ -70,7 +70,7 @@ export default function ClientDetailsDialog({ client, salesHistory, isOpen, onOp
                     </Avatar>
                     <div>
                         <h3 className="text-2xl font-semibold">{client.name}</h3>
-                        <p className="text-sm text-muted-foreground">{client.email}</p>
+                        <p className="text-sm text-muted-foreground">{client.email || 'Nenhum e-mail cadastrado'}</p>
                         <p className="text-sm text-muted-foreground">{client.phone}</p>
                     </div>
                 </div>

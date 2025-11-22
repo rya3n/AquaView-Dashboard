@@ -26,6 +26,14 @@
           "type": "string",
           "description": "Category of the product (e.g., Peixes, Plantas, Equipamentos)."
         },
+        "targetAudience": {
+          "type": "string",
+          "description": "Target audience for the product.",
+          "enum": [
+            "Casa de Ração",
+            "Revendedor"
+          ]
+        },
         "imageUrl": {
           "type": "string",
           "description": "URL of the product image."
@@ -69,8 +77,7 @@
         }
       },
       "required": [
-        "name",
-        "email"
+        "name"
       ]
     },
     "Sale": {
